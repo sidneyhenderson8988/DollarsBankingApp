@@ -12,23 +12,20 @@ public class DollarsBankApplication {
 
 	public static void main(String[] args) {
 
-		
-		
 		ConsolePrinterUtility cputil = new ConsolePrinterUtility();
 		FileStorageUtility fsutil = new FileStorageUtility();
 		Scanner input = new Scanner(System.in);
-		
-		//fsutil.generateSample();
-		
+
+		// fsutil.generateSample();
+
 		int choice = 0;
 		boolean proceed = true;
 
 		do {
-			
-			
+
 			cputil.welcomeMenu();
 			choice = input.nextInt();
-			
+
 			switch (choice) {
 			case 1:
 				cputil.createAccount();
@@ -41,7 +38,7 @@ public class DollarsBankApplication {
 				do {
 					cputil.welcomeCustomer();
 					cputil.welcomeCustLogic();
-					System.out.println("Would you like to make another query on your account? 1 for yes, 2 for no: "); 
+					System.out.println("\nWould you like to make another query on your account? 1 for yes, 2 for no: ");
 					con = input.nextInt();
 				} while (con == 1);
 
