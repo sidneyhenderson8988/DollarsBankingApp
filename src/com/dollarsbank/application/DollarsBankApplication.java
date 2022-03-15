@@ -2,9 +2,6 @@ package com.dollarsbank.application;
 
 import java.util.Scanner;
 
-import com.dollarsbank.model.Account;
-import com.dollarsbank.model.Customer;
-import com.dollarsbank.model.SavingsAccount;
 import com.dollarsbank.utility.ConsolePrinterUtility;
 import com.dollarsbank.utility.FileStorageUtility;
 

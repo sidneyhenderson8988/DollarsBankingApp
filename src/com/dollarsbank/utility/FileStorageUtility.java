@@ -49,6 +49,7 @@ public class FileStorageUtility {
 		boolean found = false;
 
 		// Add do-while here for bad creds maybe?
+
 		for (int i = 0; i < accounts.size(); i++) {
 			if (accounts.get(i).getC1().getUserID().equals(username)
 					&& accounts.get(i).getC1().getPassword().equals(password)) {
@@ -57,8 +58,10 @@ public class FileStorageUtility {
 				found = true;
 				break;
 			}
+
 		}
-		if (found = false) {
+
+		if (found == false) {
 			System.out.println("Invalid Credentials, try again!");
 		}
 
@@ -70,7 +73,7 @@ public class FileStorageUtility {
 
 		// System.out.println(accounts);
 		Account transCust = null;
-		boolean found;
+		boolean found = false;
 		// Add do-while here for bad creds maybe?
 		for (int i = 0; i < accounts.size(); i++) {
 			if (accounts.get(i).getC1().getUserID().equals(username)) {
@@ -80,7 +83,7 @@ public class FileStorageUtility {
 				break;
 			}
 		}
-		if (found = false) {
+		if (found == false) {
 			System.out.println("Invalid Credentials, try again!");
 		}
 

@@ -2,6 +2,8 @@ package com.dollarsbank.utility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 
 import com.dollarsbank.model.Account;
@@ -37,8 +39,16 @@ public class ConsolePrinterUtility {
 		String cConNum = input.next();
 		System.out.println("User ID :");
 		String cID = input.next();
-		System.out.println("Password : 8 characters With Lower, Upper, & Special");
-		String cPass = input.next();
+
+		String cPass = null;
+		do {
+			System.out.println("Password : 8 characters With Lower, Upper, & Special");
+			cPass = input.next();
+			if (isValidPassword(cPass) == false) {
+				System.out.println("Password is invalid, please try again!");
+			}
+		} while (isValidPassword(cPass) == false);
+
 		System.out.println("Initial Deposit Amount");
 		double cInitDepo = input.nextDouble();
 
@@ -49,7 +59,7 @@ public class ConsolePrinterUtility {
 
 		fsutil.storeAccounts(newAcc);
 
-		Customer cust1 = new Customer("Sidney Henderson", "123 Main Street", "555-234-2345", "shende1", "test");
+		Customer cust1 = new Customer("Sidney Henderson", "123 Main Street", "555-234-2345", "kim1", "P@ssword1");
 		SavingsAccount savingsAcc1 = new SavingsAccount(1000);
 		Account myAccount = new Account(cust1, savingsAcc1);
 		fsutil.storeAccounts(myAccount);
@@ -94,6 +104,21 @@ public class ConsolePrinterUtility {
 
 	public void setTransAccount(Account transAccount) {
 		this.transAccount = transAccount;
+	}
+
+	public static boolean isValidPassword(String password) {
+
+		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
+
+		Pattern p = Pattern.compile(regex);
+
+		if (password == null) {
+			return false;
+		}
+
+		Matcher m = p.matcher(password);
+
+		return m.matches();
 	}
 
 	public void welcomeCustomer() {
@@ -146,6 +171,7 @@ public class ConsolePrinterUtility {
 			break;
 
 		case 3:
+			// Transfer logic
 			System.out.println("Transfer from account: " + getLoggedAccount().getC1().getUserID());
 			System.out.println("What is the username of the account you want to transfer to?");
 			String userTransfer = input.next();
