@@ -1,22 +1,22 @@
 package com.dollarsbank.utility;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 
+import com.dollarsbank.controller.DollarsBankController;
 import com.dollarsbank.model.Account;
 import com.dollarsbank.model.Customer;
 import com.dollarsbank.model.SavingsAccount;
 
 public class ConsolePrinterUtility {
 
+	DollarsBankController dbc = new DollarsBankController();
 	FileStorageUtility fsutil = new FileStorageUtility();
 	Account loggedAccount = null;
 	Account transAccount = null;
 
-	// ArrayList<String> transactions = new ArrayList<String>();
 
 	public void welcomeMenu() {
 
@@ -32,24 +32,24 @@ public class ConsolePrinterUtility {
 
 		Scanner input = new Scanner(System.in);
 		System.out.println("Customer Name:");
-		String cName = input.next();
+		String cName = input.nextLine();
 		System.out.println("Customer Address:");
-		String cAddr = input.next();
+		String cAddr = input.nextLine();
 		System.out.println("Customer Contact Number:");
-		String cConNum = input.next();
+		String cConNum = input.nextLine();
 		System.out.println("User ID :");
-		String cID = input.next();
+		String cID = input.nextLine();
 
 		String cPass = null;
 		do {
-			System.out.println("Password : 8 characters With Lower, Upper, & Special");
+			System.out.println("Password : MUST contain 8 characters With Lower, Upper, & Special");
 			cPass = input.next();
-			if (isValidPassword(cPass) == false) {
+			if (isValid(cPass) == false) {
 				System.out.println("Password is invalid, please try again!");
 			}
-		} while (isValidPassword(cPass) == false);
+		} while (isValid(cPass) == false);
 
-		System.out.println("Initial Deposit Amount");
+		System.out.println("Initial Deposit Amount:");
 		double cInitDepo = input.nextDouble();
 
 		SavingsAccount newSavAcc = new SavingsAccount(cInitDepo);
@@ -59,7 +59,8 @@ public class ConsolePrinterUtility {
 
 		fsutil.storeAccounts(newAcc);
 
-		Customer cust1 = new Customer("Sidney Henderson", "123 Main Street", "555-234-2345", "kim1", "P@ssword1");
+		// Creates other accounts for testing purposes
+		Customer cust1 = new Customer("Kim Henderson", "123 Main Street", "555-234-2345", "kim1", "P@ssword1");
 		SavingsAccount savingsAcc1 = new SavingsAccount(1000);
 		Account myAccount = new Account(cust1, savingsAcc1);
 		fsutil.storeAccounts(myAccount);
@@ -70,6 +71,8 @@ public class ConsolePrinterUtility {
 		fsutil.storeAccounts(myAccount2);
 
 		System.out.println(fsutil.getAccounts());
+		
+		//input.close();
 
 	}
 
@@ -81,13 +84,17 @@ public class ConsolePrinterUtility {
 
 	public void loginChecker() {
 		Scanner input = new Scanner(System.in);
-
+		
+		do {
 		System.out.println("User ID :");
 		String cID = input.next();
 		System.out.println("Password : 8 characters With Lower, Upper, & Special");
 		String cPass = input.next();
 
 		setLoggedAccount(fsutil.checkLogin(cID, cPass));
+		
+		}while(loggedAccount == null);
+		//input.close();
 	}
 
 	public Account getLoggedAccount() {
@@ -106,19 +113,19 @@ public class ConsolePrinterUtility {
 		this.transAccount = transAccount;
 	}
 
-	public static boolean isValidPassword(String password) {
+	public static boolean isValid(String password) {
 
 		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
 
-		Pattern p = Pattern.compile(regex);
+		Pattern patt = Pattern.compile(regex);
 
 		if (password == null) {
 			return false;
 		}
 
-		Matcher m = p.matcher(password);
+		Matcher match = patt.matcher(password);
 
-		return m.matches();
+		return match.matches();
 	}
 
 	public void welcomeCustomer() {
@@ -136,17 +143,7 @@ public class ConsolePrinterUtility {
 
 		switch (choice) {
 		case 1:
-			// Deposit Logic
-			System.out.println("Deposit for account: " + getLoggedAccount().getC1().getUserID());
-			double origAmountD = getLoggedAccount().getS1().getAmount();
-			System.out.println("Current balance: " + origAmountD);
-			System.out.println("\nPlease enter an amount to Deposit: ");
-			double depoAmountD = input.nextDouble();
-			double totalD = depoAmountD + origAmountD;
-			getLoggedAccount().getS1().setAmount(totalD);
-			System.out.println("\n Your current total is: " + totalD);
-			LocalDateTime myTime = LocalDateTime.now();
-			getLoggedAccount().getTransactions().add("\n*Deposited $" + depoAmountD + " into savings at: " + myTime);
+			dbc.makeDeposit();
 
 			break;
 
@@ -172,14 +169,19 @@ public class ConsolePrinterUtility {
 
 		case 3:
 			// Transfer logic
-			System.out.println("Transfer from account: " + getLoggedAccount().getC1().getUserID());
-			System.out.println("What is the username of the account you want to transfer to?");
-			String userTransfer = input.next();
+			String userTransfer = null;
+			double transAmount = 0;
+			
+			do {
+			System.out.println("\nTransfer from account: " + getLoggedAccount().getC1().getUserID());
+			System.out.println("\nWhat is the username of the account you want to transfer to?");
+			userTransfer = input.next();
 			System.out.println("How much would you like to transfer to " + userTransfer);
-			double transAmount = input.nextDouble();
+			transAmount = input.nextDouble();
 
 			setTransAccount(fsutil.transferCheck(userTransfer));
-
+			}while(transAccount == null);
+			
 			double origAmountT = getLoggedAccount().getS1().getAmount();
 			double totalT = 0;
 

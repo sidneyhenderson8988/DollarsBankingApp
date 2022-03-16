@@ -9,7 +9,6 @@ import com.dollarsbank.model.SavingsAccount;
 public class FileStorageUtility {
 
 	ArrayList<Account> accounts = new ArrayList<Account>();
-	// ArrayList<Customer> customers = new ArrayList<Customer>();
 
 	public void generateSample() {
 		Customer cust1 = new Customer("Kim Henderson", "123 Main Street", "555-234-2345", "shende1", "test");
@@ -38,22 +37,15 @@ public class FileStorageUtility {
 		accounts.add(a1);
 	}
 
-//	public void storeCustomers(Customer c1) {
-//		customers.add(c1);
-//	}
-
 	public Account checkLogin(String username, String password) {
 
-		// System.out.println(customers);
 		Account loggedCust = null;
 		boolean found = false;
-
-		// Add do-while here for bad creds maybe?
 
 		for (int i = 0; i < accounts.size(); i++) {
 			if (accounts.get(i).getC1().getUserID().equals(username)
 					&& accounts.get(i).getC1().getPassword().equals(password)) {
-				System.out.println("Account found; welcome " + username);
+				System.out.println("\n*** Account found; welcome " + username + " ***");
 				loggedCust = accounts.get(i);
 				found = true;
 				break;
@@ -62,7 +54,7 @@ public class FileStorageUtility {
 		}
 
 		if (found == false) {
-			System.out.println("Invalid Credentials, try again!");
+			System.out.println("\nInvalid Credentials, try again!");
 		}
 
 		return loggedCust;
@@ -71,10 +63,8 @@ public class FileStorageUtility {
 
 	public Account transferCheck(String username) {
 
-		// System.out.println(accounts);
 		Account transCust = null;
 		boolean found = false;
-		// Add do-while here for bad creds maybe?
 		for (int i = 0; i < accounts.size(); i++) {
 			if (accounts.get(i).getC1().getUserID().equals(username)) {
 				System.out.println("Found match");
@@ -84,7 +74,7 @@ public class FileStorageUtility {
 			}
 		}
 		if (found == false) {
-			System.out.println("Invalid Credentials, try again!");
+			System.out.println("\nInvalid Credentials, try again!");
 		}
 
 		return transCust;

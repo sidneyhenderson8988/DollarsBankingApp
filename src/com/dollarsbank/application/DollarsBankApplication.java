@@ -3,17 +3,13 @@ package com.dollarsbank.application;
 import java.util.Scanner;
 
 import com.dollarsbank.utility.ConsolePrinterUtility;
-import com.dollarsbank.utility.FileStorageUtility;
 
 public class DollarsBankApplication {
 
 	public static void main(String[] args) {
 
 		ConsolePrinterUtility cputil = new ConsolePrinterUtility();
-		FileStorageUtility fsutil = new FileStorageUtility();
 		Scanner input = new Scanner(System.in);
-
-		// fsutil.generateSample();
 
 		int choice = 0;
 		boolean proceed = true;
@@ -48,6 +44,7 @@ public class DollarsBankApplication {
 
 		} while (proceed);
 
+		input.close();
 		System.out.println("******END******");
 
 	}
