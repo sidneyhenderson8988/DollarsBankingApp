@@ -17,7 +17,6 @@ public class ConsolePrinterUtility {
 	Account loggedAccount = null;
 	Account transAccount = null;
 
-
 	public void welcomeMenu() {
 
 		System.out.println("\n+---------------------------+\n" + "| DOLLARSBANK Welcomes You! |\n"
@@ -49,7 +48,7 @@ public class ConsolePrinterUtility {
 			}
 		} while (isValid(cPass) == false);
 
-		System.out.println("Initial Deposit Amount:");
+		System.out.println("\nInitial Deposit Amount:");
 		double cInitDepo = input.nextDouble();
 
 		SavingsAccount newSavAcc = new SavingsAccount(cInitDepo);
@@ -71,8 +70,8 @@ public class ConsolePrinterUtility {
 		fsutil.storeAccounts(myAccount2);
 
 		System.out.println(fsutil.getAccounts());
-		
-		//input.close();
+
+		// input.close();
 
 	}
 
@@ -84,17 +83,17 @@ public class ConsolePrinterUtility {
 
 	public void loginChecker() {
 		Scanner input = new Scanner(System.in);
-		
-		do {
-		System.out.println("User ID :");
-		String cID = input.next();
-		System.out.println("Password : 8 characters With Lower, Upper, & Special");
-		String cPass = input.next();
 
-		setLoggedAccount(fsutil.checkLogin(cID, cPass));
-		
-		}while(loggedAccount == null);
-		//input.close();
+		do {
+			System.out.println("\nUser ID :");
+			String cID = input.next();
+			System.out.println("\nPassword : 8 characters With Lower, Upper, & Special");
+			String cPass = input.next();
+
+			setLoggedAccount(fsutil.checkLogin(cID, cPass));
+
+		} while (loggedAccount == null);
+		// input.close();
 	}
 
 	public Account getLoggedAccount() {
@@ -137,79 +136,44 @@ public class ConsolePrinterUtility {
 
 	public int welcomeCustLogic() {
 		int choice = 0;
-		boolean proceed = true;
 		Scanner input = new Scanner(System.in);
 		choice = input.nextInt();
 
 		switch (choice) {
 		case 1:
-			dbc.makeDeposit();
-
+			dbc.makeDeposit(loggedAccount);
 			break;
 
 		case 2:
-			// Withdrawal Logic
-			System.out.println("Withdrawal from account: " + getLoggedAccount().getC1().getUserID());
-			double origAmountW = getLoggedAccount().getS1().getAmount();
-			System.out.println("Current balance: " + origAmountW);
-			System.out.println("\nPlease enter an amount to Withdraw: ");
-			double withdrawAmount = input.nextDouble();
-			double totalW = 0;
-			if (withdrawAmount <= origAmountW) {
-				totalW = origAmountW - withdrawAmount;
-				getLoggedAccount().getS1().setAmount(totalW);
-			} else {
-				System.out.println("Operation Failed: Not enough funds to withdraw amount");
-			}
-
-			System.out.println("\n Your current total is: " + getLoggedAccount().getS1().getAmount());
-			LocalDateTime myTime2 = LocalDateTime.now();
-			getLoggedAccount().getTransactions().add("\n*Withdrew $" + withdrawAmount + " from savings at: " + myTime2);
+			dbc.makeWithdrawal(loggedAccount);
 			break;
 
 		case 3:
-			// Transfer logic
 			String userTransfer = null;
 			double transAmount = 0;
-			
+
 			do {
-			System.out.println("\nTransfer from account: " + getLoggedAccount().getC1().getUserID());
-			System.out.println("\nWhat is the username of the account you want to transfer to?");
-			userTransfer = input.next();
-			System.out.println("How much would you like to transfer to " + userTransfer);
-			transAmount = input.nextDouble();
 
-			setTransAccount(fsutil.transferCheck(userTransfer));
-			}while(transAccount == null);
+				System.out.println("\nTransfer from account: " + loggedAccount.getC1().getUserID());
+				System.out.println("\nWhat is the username of the account you want to transfer to?");
+				userTransfer = input.next();
+				System.out.println("\nHow much would you like to transfer to " + userTransfer + ":");
+				transAmount = input.nextDouble();
+
+				setTransAccount(fsutil.transferCheck(userTransfer));
+			} while (transAccount == null);
+
+			dbc.makeTransfer(loggedAccount, transAccount, transAmount);
 			
-			double origAmountT = getLoggedAccount().getS1().getAmount();
-			double totalT = 0;
-
-			if (transAmount <= origAmountT) {
-				totalT = origAmountT - transAmount;
-				getLoggedAccount().getS1().setAmount(totalT);
-
-				getTransAccount().getS1().setAmount(getTransAccount().getS1().getAmount() + transAmount);
-
-			} else {
-				System.out.println("Operation Failed: Not enough funds to transfer amount");
-			}
-
-			System.out.println("\n Your current total is: " + getLoggedAccount().getS1().getAmount());
-			System.out.println("\n Their current total is: " + getTransAccount().getS1().getAmount() + "\n");
-
-			LocalDateTime myTime3 = LocalDateTime.now();
-			getLoggedAccount().getTransactions().add("\n*Transfered $" + transAmount + " from savings to "
-					+ getTransAccount().getC1().getUserID() + " at " + myTime3);
 			break;
 		case 4:
-			getLoggedAccount().get5Transactions();
+			loggedAccount.get5Transactions();
 			break;
 		case 5:
-			System.out.println(getLoggedAccount());
+			System.out.println(loggedAccount);
 			break;
 		case 6:
-			System.out.println("Enter '2' to sign out: ");
+			System.out.println("\nEnter '2' to sign out: ");
 			break;
 		default:
 			System.out.println("default case");

@@ -67,7 +67,7 @@ public class FileStorageUtility {
 		boolean found = false;
 		for (int i = 0; i < accounts.size(); i++) {
 			if (accounts.get(i).getC1().getUserID().equals(username)) {
-				System.out.println("Found match");
+				System.out.println("\nFound match!");
 				transCust = accounts.get(i);
 				found = true;
 				break;
