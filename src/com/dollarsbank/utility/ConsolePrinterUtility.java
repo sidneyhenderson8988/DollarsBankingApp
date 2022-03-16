@@ -3,8 +3,6 @@ package com.dollarsbank.utility;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.LocalDateTime;
-
 import com.dollarsbank.controller.DollarsBankController;
 import com.dollarsbank.model.Account;
 import com.dollarsbank.model.Customer;
@@ -53,7 +51,6 @@ public class ConsolePrinterUtility {
 
 		SavingsAccount newSavAcc = new SavingsAccount(cInitDepo);
 		Customer newCust = new Customer(cName, cAddr, cConNum, cID, cPass);
-
 		Account newAcc = new Account(newCust, newSavAcc);
 
 		fsutil.storeAccounts(newAcc);
@@ -115,7 +112,6 @@ public class ConsolePrinterUtility {
 	public static boolean isValid(String password) {
 
 		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
-
 		Pattern patt = Pattern.compile(regex);
 
 		if (password == null) {

@@ -5,9 +5,9 @@ public class SavingsAccount {
 	double amount;
 
 	public SavingsAccount() {
-		
+
 	}
-	
+
 	public SavingsAccount(double amount) {
 		super();
 		this.amount = amount;
@@ -25,7 +25,5 @@ public class SavingsAccount {
 	public String toString() {
 		return "| Savings Account has: $" + amount + " | ";
 	}
-	
-	
-	
+
 }

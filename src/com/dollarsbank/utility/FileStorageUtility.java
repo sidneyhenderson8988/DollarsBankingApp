@@ -11,12 +11,12 @@ public class FileStorageUtility {
 	ArrayList<Account> accounts = new ArrayList<Account>();
 
 	public void generateSample() {
-		Customer cust1 = new Customer("Kim Henderson", "123 Main Street", "555-234-2345", "shende1", "test");
+		Customer cust1 = new Customer("Kim Jacobs", "123 Main Street", "555-234-2345", "shende1", "test");
 		SavingsAccount savingsAcc1 = new SavingsAccount(1000);
 		Account myAccount = new Account(cust1, savingsAcc1);
 		storeAccounts(myAccount);
 
-		Customer cust2 = new Customer("Alex Henderson", "555 Creek Blvd", "312-465-2245", "alex2", "P@ssword2");
+		Customer cust2 = new Customer("Alex Harrison", "555 Creek Blvd", "312-465-2245", "alex2", "P@ssword2");
 		SavingsAccount savingsAcc2 = new SavingsAccount(1000);
 		Account myAccount2 = new Account(cust2, savingsAcc2);
 		storeAccounts(myAccount2);
@@ -50,15 +50,12 @@ public class FileStorageUtility {
 				found = true;
 				break;
 			}
-
 		}
 
 		if (found == false) {
 			System.out.println("\nInvalid Credentials, try again!");
 		}
-
 		return loggedCust;
-
 	}
 
 	public Account transferCheck(String username) {
@@ -73,12 +70,11 @@ public class FileStorageUtility {
 				break;
 			}
 		}
+
 		if (found == false) {
 			System.out.println("\nInvalid Credentials, try again!");
 		}
 
 		return transCust;
-
 	}
-
 }
