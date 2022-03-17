@@ -50,7 +50,7 @@ public class DollarsBankController {
 	}
 
 	public void makeTransfer(Account loggedAccount, Account transAccount, double transAmount) {
-		
+
 		// Transfer logic
 		double origAmountT = loggedAccount.getS1().getAmount();
 		double totalT = 0;

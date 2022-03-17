@@ -56,12 +56,12 @@ public class ConsolePrinterUtility {
 		fsutil.storeAccounts(newAcc);
 
 		// Creates other accounts for testing purposes
-		Customer cust1 = new Customer("Kim Henderson", "123 Main Street", "555-234-2345", "kim1", "P@ssword1");
+		Customer cust1 = new Customer("Kim Jacobs", "123 Main Street", "555-234-2345", "kim1", "P@ssword1");
 		SavingsAccount savingsAcc1 = new SavingsAccount(1000);
 		Account myAccount = new Account(cust1, savingsAcc1);
 		fsutil.storeAccounts(myAccount);
 
-		Customer cust2 = new Customer("Alex Henderson", "555 Creek Blvd", "312-465-2245", "alex2", "P@ssword2");
+		Customer cust2 = new Customer("Alex Harris", "555 Creek Blvd", "312-465-2245", "alex2", "P@ssword2");
 		SavingsAccount savingsAcc2 = new SavingsAccount(1000);
 		Account myAccount2 = new Account(cust2, savingsAcc2);
 		fsutil.storeAccounts(myAccount2);
@@ -160,7 +160,7 @@ public class ConsolePrinterUtility {
 			} while (transAccount == null);
 
 			dbc.makeTransfer(loggedAccount, transAccount, transAmount);
-			
+
 			break;
 		case 4:
 			loggedAccount.get5Transactions();
